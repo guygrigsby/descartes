@@ -13,19 +13,19 @@ double Operator::eval(std::map<std::string,double> &symbolTable) {
 	double ret;
 	switch (getKind()) {
 		case PLUS: {
-			ret = getRight()->eval(symbolTable) + getLeft()->eval(symbolTable);
+			ret = getLeft()->eval(symbolTable) + getRight()->eval(symbolTable);
 			break;
 		}
 		case MINUS: {
-			ret = getRight()->eval(symbolTable) - getLeft()->eval(symbolTable);
+			ret = getLeft()->eval(symbolTable) - getRight()->eval(symbolTable);
 			break;
 		}
 		case DIV: {
-			ret = getRight()->eval(symbolTable) / getLeft()->eval(symbolTable);
+			ret = getLeft()->eval(symbolTable) / getRight()->eval(symbolTable);
 			break;
 		}
 		case TIMES: {
-			ret = getRight()->eval(symbolTable) * getLeft()->eval(symbolTable);
+			ret = getLeft()->eval(symbolTable) * getRight()->eval(symbolTable);
 			break;
 		}
 	}

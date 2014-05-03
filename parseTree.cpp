@@ -33,8 +33,8 @@ std::map<std::string,double> symbolTable;
 	StmtNode *curr = root;
 	Number *num;
 	Operator *op;
+	cout << "\n\n\nParseTree::executing" << endl;
 	while (curr != NULL ) {
-		cout << "\n\n\nParseTree::executing" << endl;
 		if (curr->getKind() != BECOMES) {
 			string msg = "BECOMES (:=) expected";
 			new Error(101, msg);
@@ -87,8 +87,11 @@ void ParseTree::stmt (StmtNode *&current) {//create a statement node and have cu
 		cout << "PERIOD. Program end" << endl;
 	}
 	case LOOP: {
-		break;
-		}
+		//Loop *loop = new Loop(scan);
+		//current = loop;
+		//loop->
+		break; // loop = 
+	}
 
 	default: char msg[100];
 			 string msg2="Unrecognized statement: ";
