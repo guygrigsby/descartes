@@ -15,8 +15,10 @@
 
 #include <iostream>
 #include <string>
+#include <map>
 
 using namespace std;
+
 
 ParseTree::ParseTree(){
 	root = NULL;
@@ -27,6 +29,7 @@ void ParseTree::init(string fname) {
 }
 
 void ParseTree::execute(){
+	map<string,double> * symbolTable;
 	StmtNode *curr = root;
 	Number *num;
 	Operator *op;
@@ -41,17 +44,39 @@ void ParseTree::execute(){
 		Id  *id = (Id *)n;
 		cout <<  id->getName()  << "  := " ;
 		n = be->getRHS();
+		Expr * exp = (Expr *) n;
+		//double value = exp->eval(symbolTable);
+		//symbolTable[id->getName()] = exp->eval(symbolTable);
 		switch (n->getKind()) {
-		case NUMBER:  	num = (Number *) n;
-						cout << num->getValue();
-						break;
-		case PLUS:
+		case ID: {
+			Id * rhsId = (Id *) n;
+			double numVal = (*symbolTable)[rhsId->getName()];
+			(*symbolTable)[id->getName()] =  numVal;
+			cout << numVal;
+			break;
+
+		}
+		case NUMBER: {
+			num = (Number *) n;
+			double numVal = num->getValue();
+			(*symbolTable)[id->getName()] =  numVal;
+			cout << numVal;
+			break;
+		}
+		case PLUS: {
+			op = (Operator *) n;
+			Expr * rhs = op->getRight();
+			Expr * lhs = op->getLeft();
+			op->print();
+			break;
+					}
 		case MINUS:
 		case DIV:
-		case TIMES:
-						op = (Operator *) n;
-						//op->print();
-						break;
+		case TIMES: {
+			op = (Operator *) n;
+			op->print();
+			break;
+		}
 		default:		cout << "  OTHER  ";
 		}//switch
 		cout << endl;
@@ -81,27 +106,19 @@ void ParseTree::stmtTail (StmtNode &current) {
 
 void ParseTree::stmt (StmtNode *&current) {//create a statement node and have current point to it
 	int symb = scan.getCurrSymb();
-			cout << symb << endl;
 	switch (symb) {
 	case ID: {
 		Becomes *be;
 		be = new Becomes();
 		current = be;
 		be->assignment(scan);	//find an assignment statement
+		// expr
 		break;					// stmt : ID := expr 
 	}
 	case PERIOD: {
 		cout << "PERIOD. Program end" << endl;
 	}
 	case LOOP: {
-		cout << scan.getCurrSymb() << endl;
-		while (scan.getCurrSymb() != REPEAT) { // eat up loop for now
-			cout << scan.getCurrSymb() << endl;
-			scan.nextToken();
-			cout << scan.getCurrName() << endl;
-		}
-		scan.nextToken();
-		scan.nextToken();
 		break;
 		}
 

@@ -6,6 +6,7 @@
 
 #include	"stmtNode.h"
 #include	"scanner.h"
+#include    "operator.h"
 
 class ParseTree {
 	private:	StmtNode *root;		//points to recursive descent tree

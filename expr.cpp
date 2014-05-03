@@ -9,7 +9,7 @@
 #include  "termTail.h"
 #include  <stdlib.h>
 
-Expr * Expr::parse(Scanner &scan){  
+Expr * Expr::parse(Scanner &scan){
 	Expr		*subtree;				//the expression subtree
 	Expr		*lhs;					//lhs of the above subtree
 	Term		*t	= new Term();		//from the grammar
@@ -22,3 +22,4 @@ Expr * Expr::parse(Scanner &scan){
 		return subtree;
 	}
 };  //parse
+

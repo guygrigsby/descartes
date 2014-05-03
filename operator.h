@@ -6,6 +6,8 @@
 
 #include "expr.h"
 #include <stdlib.h>
+#include <map>
+#include "number.h"
 
 class Operator : public  Expr {
 	 Expr	*left;
@@ -16,5 +18,7 @@ class Operator : public  Expr {
 	 public: Expr* getLeft(){ return left;};		//returns Left child
 	 public: void  setRight(Expr* ptr) {right = ptr;};	//assigns to right
 	 public: void  setLeft(Expr* ptr); 				//assigns to Left
+	 public: void print(); //prints the op
+	 public: double eval(std::map<std::string,double> &symbolTable);
 };
 #endif

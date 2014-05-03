@@ -10,5 +10,6 @@ class Number : public Expr {
      private: double       value;               //The number
      public: Number(double d) {nodekind = NUMBER; value = d;};      //constructor
      public: double getValue() {return value;}; //accessor method
+	 public: double eval(std::map<std::string,double> &symbolTable) {return getValue();};
 };
 #endif
