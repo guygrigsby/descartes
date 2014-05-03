@@ -6,6 +6,7 @@
 #include "becomes.h"
 #include "number.h"
 #include "error.h"
+#include "expr.h"
 #include <iostream>
 
 using namespace std;

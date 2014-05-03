@@ -14,7 +14,6 @@ double Operator::eval(std::map<std::string,double> &symbolTable) {
 
 
 
-	Expr * lhs = getLeft();
 	
 
 

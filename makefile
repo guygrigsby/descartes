@@ -108,47 +108,47 @@ zip:
 
 			
 desc: $(OFILES)
-	g++ -o descarte $(OFILES) -lstdc++
+	c++ -std=c++11 -o descarte $(OFILES) -lstdc++
 
 descarte.o: descarte.cpp
-	g++ -c descarte.cpp
+	c++ -std=c++11 -c descarte.cpp
 
 becomes.o: becomes.cpp
-	g++ -c becomes.cpp
+	c++ -std=c++11 -c becomes.cpp
 
 parseTree.o: parseTree.cpp
-	g++ -c parseTree.cpp
+	c++ -std=c++11 -c parseTree.cpp
 
 scanner.o: scanner.cpp
-	g++ -c scanner.cpp
+	c++ -std=c++11 -c scanner.cpp
 
 string.o: string.cpp
-	g++ -c string.cpp
+	c++ -std=c++11 -c string.cpp
 
 expr.o:  expr.cpp
-	g++ -c expr.cpp
+	c++ -std=c++11 -c expr.cpp
 
 term.o:  term.cpp
-	g++ -c term.cpp
+	c++ -std=c++11 -c term.cpp
 
 termTail.o:  termTail.cpp
-	g++ -c termTail.cpp
+	c++ -std=c++11 -c termTail.cpp
 
 factor.o:  factor.cpp
-	g++ -c factor.cpp
+	c++ -std=c++11 -c factor.cpp
 
 factorTail.o:  factorTail.cpp
-	g++ -c factorTail.cpp
+	c++ -std=c++11 -c factorTail.cpp
 
 operator.o:  operator.cpp
-	g++ -c operator.cpp
+	c++ -std=c++11 -c operator.cpp
 
 error.o:  error.cpp
-	g++ -c error.cpp
+	c++ -std=c++11 -c error.cpp
 
 remove: 
 	rm $(OFILES)
 
 clean: remove $(OFILES)
-	g++ -o descarte $(OFILES) -lstdc++
+	c++ -std=c++11 -o descarte $(OFILES) -lstdc++
 
