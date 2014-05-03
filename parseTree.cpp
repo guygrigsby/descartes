@@ -29,7 +29,7 @@ void ParseTree::init(string fname) {
 }
 
 void ParseTree::execute(){
-	map<string,double> * symbolTable;
+std::map<std::string,double> symbolTable;
 	StmtNode *curr = root;
 	Number *num;
 	Operator *op;
@@ -45,41 +45,9 @@ void ParseTree::execute(){
 		cout <<  id->getName()  << "  := " ;
 		n = be->getRHS();
 		Expr * exp = (Expr *) n;
-		//double value = exp->eval(symbolTable);
-		//symbolTable[id->getName()] = exp->eval(symbolTable);
-		switch (n->getKind()) {
-		case ID: {
-			Id * rhsId = (Id *) n;
-			double numVal = (*symbolTable)[rhsId->getName()];
-			(*symbolTable)[id->getName()] =  numVal;
-			cout << numVal;
-			break;
-
-		}
-		case NUMBER: {
-			num = (Number *) n;
-			double numVal = num->getValue();
-			(*symbolTable)[id->getName()] =  numVal;
-			cout << numVal;
-			break;
-		}
-		case PLUS: {
-			op = (Operator *) n;
-			Expr * rhs = op->getRight();
-			Expr * lhs = op->getLeft();
-			op->print();
-			break;
-					}
-		case MINUS:
-		case DIV:
-		case TIMES: {
-			op = (Operator *) n;
-			op->print();
-			break;
-		}
-		default:		cout << "  OTHER  ";
-		}//switch
-		cout << endl;
+		double value = exp->eval(symbolTable);
+		symbolTable[id->getName()] = value;
+		cout << value << endl;
 		curr = curr->getNext();
 	}//while
 }//execute

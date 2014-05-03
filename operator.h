@@ -19,6 +19,6 @@ class Operator : public  Expr {
 	 public: void  setRight(Expr* ptr) {right = ptr;};	//assigns to right
 	 public: void  setLeft(Expr* ptr); 				//assigns to Left
 	 public: void print(); //prints the op
-	 public: double eval(std::map<std::string,double> &symbolTable);
+	 public: double eval(std::map<std::string,double> &symbolTable); // evaluates the operator subtree
 };
 #endif

@@ -1,3 +1,6 @@
 NUM := 1;
 NUM2 := NUM;
-SUM := NUM + NUM2 .
+SUM := NUM + NUM2;
+DIFF := NUM - NUM2;
+MULT := SUM * SUM;
+QUO := MULT / SUM .
