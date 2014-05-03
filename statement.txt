@@ -1,1 +1,3 @@
-SUM := 1 + 2 .
+NUM := 1;
+NUM2 := NUM;
+SUM := NUM + NUM2 .
