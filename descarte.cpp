@@ -10,5 +10,7 @@ int main(int argc, char **argv ) {
 	}
 	ptree.init(fname);
 	ptree.build();
-	ptree.execute();
+	
+	std::map<std::string,double> symbolTable;
+	ptree.execute(symbolTable);
 }

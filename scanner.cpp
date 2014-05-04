@@ -55,6 +55,7 @@ void  Scanner::nextToken() {	//move on to next token
 	char  theWord[128];
 	cout << "Scanner: nextToken() " << endl;
 	scan(currSymb, theWord, currValue);
+	cout << theWord << endl;
 	currName = theWord;
 }
 
@@ -93,7 +94,7 @@ void getNumber(int &token, char word[], double &value) {
 } //getNumber
 
 void scan(int &token, char word[], double &value) {
-	cout << "Scanner: scan() " << endl ;
+	cout << "Scanner: scan() " << endl;
 	do {								//skip white space
 		fin.get(word[0]);
 	}  while(isspace(word[0]));
@@ -169,7 +170,7 @@ void scan(int &token, char word[], double &value) {
 					break;
 		default:	cerr << "scan: Unknown character [" << word[0]<<"] found in file" << endl;
 					exit (12);
-		} //switch
+		} //switch	
 		return;
 	}//else
 } //scan

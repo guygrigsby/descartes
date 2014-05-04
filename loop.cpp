@@ -21,10 +21,15 @@ void Loop::assignMembers(Scanner &scan) { //LOOP ID COLON stmt-list REPEAT
 	}
 
 	scan.nextToken();
-	//subTree = new ParseTree(scan);
-	//subTree->build();
+	subTree = new ParseTree(scan);
+	subTree->build();
+	scan.nextToken(); // just eat the repeat
+	scan.nextToken(); // just eat the repeat
 }
 
+bool broken = false;
 void Loop::execute(std::map<std::string,double> &symbolTable) {
-	subTree->execute(symbolTable);
+	while (!broken) {
+		subTree->execute(symbolTable);	
+	}
 }

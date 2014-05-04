@@ -11,9 +11,10 @@
 class ParseTree {
 	private:	StmtNode *root;		//points to recursive descent tree
 				Scanner  scan;		//Scanner object to retrieve tokens
-	public:		ParseTree();		//constructor
+	public:		ParseTree();		//constructori
+				ParseTree(Scanner &scan);
 				void build();
-				void execute();
+				void execute(std::map<std::string,double> &symbolTable);
 				void stmtTail (StmtNode &current);
 				void stmt (StmtNode  *&current); 
 				void init(std::string fname);
