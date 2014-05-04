@@ -1,0 +1,5 @@
+INT := 5;
+LOOP GO :
+	VAR := 5;
+REPEAT;
+INT := 8 .
