@@ -54,15 +54,6 @@ void ParseTree::execute(std::map<std::string,double> &symbolTable){
 				cout << value << endl;
 				curr = curr->getNext();
 			}
-			case LOOP: {
-				loop = (Loop *) curr;
-				//loop->execute(symbolTable);
-				curr = curr->getNext();
-			}
-			case BREAK: {
-				//loop->break();
-				curr = curr->getNext();
-			}
 		}
 	}//while
 }//execute
@@ -72,11 +63,9 @@ void ParseTree::build( ) {  /* prog : stmt stmt-tail */
     stmtTail(*root);		//pass in node where rest of pgm is to be attached
 	cout << "time to end, token is " << scan.getCurrSymb() << endl;
 	int symb = scan.getCurrSymb();
-	if (symb == REPEAT) {
-		scan.nextToken(); // eat the semicolon
-		scan.nextToken(); // eat the semicolon
-		return;
-	}
+	//if (symb == REPEAT) {
+	//	return;
+	//}
 	cout << scan.getCurrName() << endl;
     if (symb != PERIOD) new Error(6, " PERIOD expected");
 } //build
@@ -107,18 +96,21 @@ void ParseTree::stmt (StmtNode *&current) {//create a statement node and have cu
 	}
 	case PERIOD: {
 		cout << "PERIOD. Program end" << endl;
-	}
-	case LOOP: {
-		Loop *loop = new Loop();
-		current = loop;
-		loop->assignMembers(scan); // create statement list in loop
-		break; // loop = 
-	}
-	case REPEAT: {
-		//scan.nextToken(); // eat the repeat
-		//scan.nextToken(); // eat the semicolon
 		break;
 	}
+	//This method of using another parse tree inside loop will not work.
+	// need to abstract it first. REPEAT is part of LOOP. no separate cases
+	//case LOOP: {
+	//	Loop *loop = new Loop();
+	//	current = loop;
+	//	loop->assignMembers(scan); // create statement list in loop
+	//	break; // loop = 
+	//}
+	//case REPEAT: {
+	//	//scan.nextToken(); // eat the repeat
+	//	//scan.nextToken(); // eat the semicolon
+	//	break;
+	//}
 
 	default: char msg[100];
 			 string msg2="Unrecognized statement: ";

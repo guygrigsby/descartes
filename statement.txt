@@ -5,6 +5,3 @@ DIFF := NUM - NUM2;
 MULT := NUM * NUM2;
 QUO := NUM / NUM2; 
 LONGSUM := 1 + 2 + 3 + 4 + 5 .
-LOOP LOOP1 :
-	INT := 7;
-REPEAT .

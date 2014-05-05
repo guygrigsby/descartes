@@ -23,8 +23,6 @@ void Loop::assignMembers(Scanner &scan) { //LOOP ID COLON stmt-list REPEAT
 	scan.nextToken();
 	subTree = new ParseTree(scan);
 	subTree->build();
-	scan.nextToken(); // just eat the repeat
-	scan.nextToken(); // just eat the repeat
 }
 
 bool broken = false;
