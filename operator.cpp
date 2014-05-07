@@ -52,6 +52,14 @@ double Operator::eval(std::map<std::string,double> &symbolTable) {
 			ret = (getLeft()->eval(symbolTable) != getRight()->eval(symbolTable)) ? 1 : 0;
 			break;
 		}
+		case AND: {
+			ret = (getLeft()->eval(symbolTable) && getRight()->eval(symbolTable)) ? 1 : 0;
+			break;
+		}
+		case OR: {
+			ret = (getLeft()->eval(symbolTable) || getRight()->eval(symbolTable)) ? 1 : 0;
+			break;
+		}
 	}
 	//print();
 
