@@ -13,9 +13,9 @@ class ParseTree {
 				Scanner  scan;		//Scanner object to retrieve tokens
 	public:		ParseTree();		//constructori
 				ParseTree(Scanner &scan);
-				void build();
+				void build(int stopToken);
 				void execute(std::map<std::string,double> &symbolTable);
-				void stmtTail (StmtNode &current);
+				void stmtTail (StmtNode &current, int stopToken);
 				void stmt (StmtNode  *&current); 
 				void init(std::string fname);
 };

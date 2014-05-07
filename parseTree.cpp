@@ -58,9 +58,9 @@ void ParseTree::execute(std::map<std::string,double> &symbolTable){
 	}//while
 }//execute
 
-void ParseTree::build( ) {  /* prog : stmt stmt-tail */
+void ParseTree::build(int stopToken) {  /* prog : stmt stmt-tail */
     stmt(root);				//root points to first statement node after call
-    stmtTail(*root);		//pass in node where rest of pgm is to be attached
+    stmtTail(*root, stopToken);		//pass in node where rest of pgm is to be attached
 	cout << "time to end, token is " << scan.getCurrSymb() << endl;
 	int symb = scan.getCurrSymb();
 	//if (symb == REPEAT) {
@@ -70,16 +70,19 @@ void ParseTree::build( ) {  /* prog : stmt stmt-tail */
     if (symb != PERIOD) new Error(6, " PERIOD expected");
 } //build
 
-void ParseTree::stmtTail (StmtNode &current) {
+void ParseTree::stmtTail (StmtNode &current, int stopToken) {
 /*  Current is the end of a chain of statements.  If there are more
     statements, tack them on the end. */
 	StmtNode *nextStmt;
     if (scan.getCurrSymb() == SEMICOLON)  { // stmt-tail : SEMICOLON stmt stmt-tail 
 	  cout << "stmtTail: " << endl;
 	  scan.nextToken();
+	  if (scan.getCurrSymb() == stopToken) {
+	  	return;			
+	  }
       stmt(nextStmt);				//create the statement node for the next statement
       current.setNext(nextStmt);	//attach it to the list of nodes
-      stmtTail(*nextStmt);			//build up the rest of the program
+      stmtTail(*nextStmt, stopToken);//build up the rest of the program
     } // else stmt-tail is empty; do nothing
 } //stmtTail
 
@@ -99,7 +102,7 @@ void ParseTree::stmt (StmtNode *&current) {//create a statement node and have cu
 		break;
 	}
 	//This method of using another parse tree inside loop will not work.
-	// need to abstract it first. REPEAT is part of LOOP. no separate cases
+	// need to abstract it first	. REPEAT is part of LOOP. no separate cases
 	//case LOOP: {
 	//	Loop *loop = new Loop();
 	//	current = loop;

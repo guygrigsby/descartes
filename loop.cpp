@@ -22,7 +22,7 @@ void Loop::assignMembers(Scanner &scan) { //LOOP ID COLON stmt-list REPEAT
 
 	scan.nextToken();
 	subTree = new ParseTree(scan);
-	subTree->build();
+	subTree->build(REPEAT);
 }
 
 bool broken = false;

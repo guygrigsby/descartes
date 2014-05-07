@@ -1,4 +1,5 @@
 #include  "parseTree.h"
+#include  "tokens.h"
 #include <iostream>
 using namespace std;
 
@@ -9,7 +10,7 @@ int main(int argc, char **argv ) {
 		fname.append(argv[1]);
 	}
 	ptree.init(fname);
-	ptree.build();
+	ptree.build(0);
 	
 	std::map<std::string,double> symbolTable;
 	ptree.execute(symbolTable);
