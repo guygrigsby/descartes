@@ -1,14 +1,14 @@
 /*	For nodes representing numbers
 **  Written by Aaron Gordon
 */
-#ifndef BOOLTERM_H
-#define BOOLTERM_H
+#ifndef BOOLFACTOR_H
+#define BOOLFACTOR_H
 
 #include "scanner.h"
-#include "expr.h"
+#include "boolExpr.h"
 
-class BoolTerm {
-		 public: BoolTerm() { };		//constructor
+class BoolFactor {
+		 public: BoolFactor() { };		//constructor
 		 public: Expr * parse(Scanner &);	
 };
 #endif

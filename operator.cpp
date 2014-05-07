@@ -28,9 +28,32 @@ double Operator::eval(std::map<std::string,double> &symbolTable) {
 			ret = getLeft()->eval(symbolTable) * getRight()->eval(symbolTable);
 			break;
 		}
+		case LT: {
+			ret = (getLeft()->eval(symbolTable) < getRight()->eval(symbolTable)) ? 1 : 0;
+			break;
+		}
+		case LE: {
+			ret = (getLeft()->eval(symbolTable) <= getRight()->eval(symbolTable)) ? 1 : 0;
+			break;
+		}
+		case EQ: {
+			ret = (getLeft()->eval(symbolTable) == getRight()->eval(symbolTable)) ? 1 : 0;
+			break;
+		}
+		case GE: {
+			ret = (getLeft()->eval(symbolTable) >= getRight()->eval(symbolTable)) ? 1 : 0;
+			break;
+		}
+		case GT: {
+			ret = (getLeft()->eval(symbolTable) > getRight()->eval(symbolTable)) ? 1 : 0;
+			break;
+		}
+		case NE: {
+			ret = (getLeft()->eval(symbolTable) != getRight()->eval(symbolTable)) ? 1 : 0;
+			break;
+		}
 	}
 	//print();
-	
 
 
 

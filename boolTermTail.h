@@ -4,7 +4,14 @@
 #ifndef BOOLTERMTAIL_h
 #define BOOLTERMTAIL_h
 
-class BoolTermTail : public Term {
+#include "scanner.h"
+#include "expr.h"
+#include "term.h"
+#include "tokens.h"
+#include "operator.h"
 
+class BoolTermTail {
+		 public: BoolTermTail() { };		//constructor
+		 public: Expr * parse(Scanner &);	
 };
 #endif

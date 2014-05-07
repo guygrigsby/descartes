@@ -1,15 +1,16 @@
 #include <stdlib.h>
 #include "boolTermTail.h"
+#include "boolTerm.h"
 #include "expr.h"
 
 Expr * BoolTermTail::parse(Scanner &scan) {
 	Expr		*subtree;				//the expression subtree
 	Expr		*rhs;					//lhs of the above subtree
-	Term		*t	= new BoolTerm();		
-	TermTail	*tt	= new BoolTermTail();
+	BoolTerm		*t	= new BoolTerm();		
+	BoolTermTail	*tt	= new BoolTermTail();
 	// term-tail:  +  term  term-tail
 	//			   -  term  term-tail
-	if (scan.getCurrSymb() == PLUS || scan.getCurrSymb() == MINUS) {	
+	if (scan.getCurrSymb() == OR) {	
 		Operator   *op = new Operator(scan.getCurrSymb());
 		scan.nextToken();
 		rhs		= t->parse(scan);			//get the term

@@ -3,18 +3,17 @@
 */
 
 #include  <iostream>
-#include  "expr.h"
+#include  "arithExpr.h"
 #include  "operator.h"
-#include  "boolTerm.h"
-#include  "boolTermTail.h"
+#include  "term.h"
+#include  "termTail.h"
 #include  <stdlib.h>
-#include  "boolExpr.h"
 
-Expr * BoolExpr::parse(Scanner &scan){
+Expr * ArithExpr::parse(Scanner &scan){
 	Expr		*subtree;				//the expression subtree
 	Expr		*lhs;					//lhs of the above subtree
-	BoolTerm		*t	= new BoolTerm();		//from the grammar
-	BoolTermTail	*tt	= new BoolTermTail();	//from the grammar
+	Term		*t	= new Term();		//from the grammar
+	TermTail	*tt	= new TermTail();	//from the grammar
 	lhs		= t->parse(scan);			//get the term
 	subtree = tt->parse(scan);			//get the term-tail
 	if (subtree == NULL)	return lhs;
