@@ -69,6 +69,7 @@ void ParseTree::execute(std::map<std::string,double> &symbolTable, StmtNode *roo
 				} else if (ifStmt->hasElsePart()) {
 					execute(symbolTable, ifStmt->getElseStmtList());
 				}
+				break;
 			}
 			case PERIOD: {
 				cout << "End Program" << endl;
