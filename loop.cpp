@@ -16,7 +16,7 @@ void Loop::parse(Scanner &scan) { //LOOP ID COLON stmt-list REPEAT
 	if (scan.getCurrSymb() != COLON) {
 		std::string msg  = "Loop::assignMembers:  wrong token type found --> ";
 		msg.append(scan.getCurrName());
-		new Error(-75, msg);
+		new Error(-77, msg);
 	}
 
 	scan.nextToken();

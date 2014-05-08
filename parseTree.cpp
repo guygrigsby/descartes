@@ -15,6 +15,9 @@
 #include	"loop.h"
 #include	"repeat.h"
 #include	"end.h"
+#include 	"ifStmt.h"
+#include 	"fi.h"
+#include	"else.h"
 
 
 #include <iostream>
@@ -59,11 +62,25 @@ void ParseTree::execute(std::map<std::string,double> &symbolTable, StmtNode *roo
 				cout << "Exiting Loop Execution" << endl;
 				break;
 			}
+			case IF: {
+				IfStmt *ifStmt = (IfStmt *) curr;
+				if (ifStmt->isCondTrue(symbolTable)) {
+					execute(symbolTable, ifStmt->getIfStmtList());
+				} else if (ifStmt->hasElsePart()) {
+					execute(symbolTable, ifStmt->getElseStmtList());
+				}
+			}
 			case PERIOD: {
 				cout << "End Program" << endl;
 				exit(0);
 			}
 			case REPEAT: {
+				break;
+			}
+			case FI: {
+				break;
+			}
+			case ELSE: {
 				break;
 			}
 			default: char msg[100];
@@ -124,11 +141,40 @@ void ParseTree::stmt (StmtNode *&current) {//create a statement node and have cu
 		stmtTail(*loopRoot);
 		loop->setStmtList(loopRoot);
 		cout << "exit from loop statment list" << endl;
-		scan.nextToken();//swallow REPEAT
+		scan.nextToken();//swallow REPEAT TODO this should be done in repeat.cpp
 		break; // loop = 
 	}
 	case REPEAT: {
 		current = new Repeat();
+		break;
+	}
+	case IF: {
+		IfStmt* ifStmt = new IfStmt();
+		current = ifStmt;
+		ifStmt->parse(scan);
+		StmtNode *ifRoot;
+		cout << "enter if statment list" << endl;
+		stmt(ifRoot);
+		stmtTail(*ifRoot);
+		ifStmt->setStmtList(ifRoot);
+		cout << "exit from if statment list" << endl;
+		if (ifStmt->hasElsePart(scan)) {
+			StmtNode *elseRoot;
+			cout << "enter else statment list" << endl;
+			stmt(elseRoot);
+			stmtTail(*elseRoot);
+			ifStmt->setElsePart(elseRoot);
+			cout << "exit from else statment list" << endl;
+		}
+		scan.nextToken();//swallow FI TODO this should be done in fi.cpp
+		break;
+	}
+	case FI: {
+		current = new Fi();
+		break;
+	}
+	case ELSE: {
+		current = new Else();
 		break;
 	}
 
