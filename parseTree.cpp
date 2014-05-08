@@ -18,6 +18,7 @@
 #include 	"ifStmt.h"
 #include 	"fi.h"
 #include	"else.h"
+#include 	"breakStmt.h"
 
 
 #include <iostream>
@@ -57,10 +58,13 @@ void ParseTree::execute(std::map<std::string,double> &symbolTable, StmtNode *roo
 			}
 			case LOOP: {
 				Loop *loop = (Loop *) curr;
+				symbolTable[loop->getName()] = 1;
 				cout << "Entering Loop Execution" << endl;
 				execute(symbolTable, loop->getStmtList());	
 				cout << "Exiting Loop Execution" << endl;
-				break;
+				if (symbolTable[loop->getName()] == 1) {
+					continue;
+				}
 			}
 			case IF: {
 				IfStmt *ifStmt = (IfStmt *) curr;
@@ -70,6 +74,11 @@ void ParseTree::execute(std::map<std::string,double> &symbolTable, StmtNode *roo
 					execute(symbolTable, ifStmt->getElseStmtList());
 				}
 				break;
+			}
+			case BREAK: {
+				BreakStmt *breakStmt = (BreakStmt *) curr;
+				symbolTable[breakStmt->getId()] = 0;
+				return;
 			}
 			case PERIOD: {
 				cout << "End Program" << endl;
@@ -169,6 +178,11 @@ void ParseTree::stmt (StmtNode *&current) {//create a statement node and have cu
 		}
 		scan.nextToken();//swallow FI TODO this should be done in fi.cpp
 		break;
+	}
+	case BREAK: {
+		BreakStmt *breakStmt = new BreakStmt();
+		breakStmt->parse(scan);
+		current = breakStmt;
 	}
 	case FI: {
 		current = new Fi();

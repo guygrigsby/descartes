@@ -1,5 +1,5 @@
-VAR := 15;
+VAR := 0;
 LOOP NAME :
-	LOOPER := 7;
+	BREAK;	
 REPEAT;
 MORE := 0 .
