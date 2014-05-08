@@ -10,8 +10,9 @@ int main(int argc, char **argv ) {
 		fname.append(argv[1]);
 	}
 	ptree.init(fname);
-	ptree.build(0);
+	ptree.build();
 	
 	std::map<std::string,double> symbolTable;
+	cout << "\n\n" << endl;
 	ptree.execute(symbolTable);
 }

@@ -7,9 +7,8 @@
 #include "expr.h"
 #include "error.h"
 #include "loop.h"
-#include "parseTree.h"
 
-void Loop::assignMembers(Scanner &scan) { //LOOP ID COLON stmt-list REPEAT
+void Loop::parse(Scanner &scan) { //LOOP ID COLON stmt-list REPEAT
 		
 	scan.nextToken();
 	setName(scan.getCurrName());
@@ -21,13 +20,8 @@ void Loop::assignMembers(Scanner &scan) { //LOOP ID COLON stmt-list REPEAT
 	}
 
 	scan.nextToken();
-	subTree = new ParseTree(scan);
-	subTree->build(REPEAT);
 }
 
-bool broken = false;
 void Loop::execute(std::map<std::string,double> &symbolTable) {
-	while (!broken) {
-		subTree->execute(symbolTable);	
-	}
+
 }

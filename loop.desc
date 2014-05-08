@@ -1,5 +1,5 @@
-INT := 5;
-LOOP GO :
-	VAR := 5;
+VAR := 15;
+LOOP NAME :
+	LOOPER := 7;
 REPEAT;
-INT := 8 .
+MORE := 0 .
