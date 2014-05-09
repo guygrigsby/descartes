@@ -19,6 +19,7 @@
 #include 	"fi.h"
 #include	"else.h"
 #include 	"breakStmt.h"
+#include	"printStmt.h"
 
 
 #include <iostream>
@@ -73,6 +74,11 @@ void ParseTree::execute(std::map<std::string,double> &symbolTable, StmtNode *roo
 				} else if (ifStmt->hasElsePart()) {
 					execute(symbolTable, ifStmt->getElseStmtList());
 				}
+				break;
+			}
+			case PRINT: {
+				PrintStmt *printStmt = (PrintStmt *) curr;
+				printStmt->toStdOut(symbolTable);
 				break;
 			}
 			case BREAK: {
@@ -177,6 +183,14 @@ void ParseTree::stmt (StmtNode *&current) {//create a statement node and have cu
 			cout << "exit from else statment list" << endl;
 		}
 		scan.nextToken();//swallow FI TODO this should be done in fi.cpp
+		break;
+	}
+	case PRINT: {
+		std::cout << "PRINT STATEMENT BEING CREATED" << std::endl;
+		PrintStmt *printStmt = new PrintStmt();
+		printStmt->parse(scan);
+		current = printStmt;
+	
 		break;
 	}
 	case BREAK: {
