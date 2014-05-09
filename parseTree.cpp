@@ -20,6 +20,8 @@
 #include	"else.h"
 #include 	"breakStmt.h"
 #include	"printStmt.h"
+#include	"readStmt.h"
+
 
 
 #include <iostream>
@@ -79,6 +81,11 @@ void ParseTree::execute(std::map<std::string,double> &symbolTable, StmtNode *roo
 			case PRINT: {
 				PrintStmt *printStmt = (PrintStmt *) curr;
 				printStmt->toStdOut(symbolTable);
+				break;
+			}
+			case READ: {
+				ReadStmt *readStmt = (ReadStmt *) curr;
+				readStmt->fromStdIn(symbolTable);
 				break;
 			}
 			case BREAK: {
@@ -186,11 +193,15 @@ void ParseTree::stmt (StmtNode *&current) {//create a statement node and have cu
 		break;
 	}
 	case PRINT: {
-		std::cout << "PRINT STATEMENT BEING CREATED" << std::endl;
 		PrintStmt *printStmt = new PrintStmt();
 		printStmt->parse(scan);
 		current = printStmt;
-	
+		break;
+	}
+	case READ: {
+		ReadStmt *readStmt = new ReadStmt();
+		readStmt->parse(scan);
+		current = readStmt;
 		break;
 	}
 	case BREAK: {
