@@ -28,18 +28,16 @@ void  IfStmt::parse(Scanner &scan) {	//parses if stmt
 }
 
 bool IfStmt::hasElsePart(Scanner &scan) {
-	cout << "IfStmt::hasElsePart" << endl;
+	bool ret = true;
 	if (scan.getCurrSymb() == FI) {
-		scan.nextToken();
-		return false;
-	}
-	if (scan.getCurrSymb() != ELSE) {
+		ret = false;
+	} else if (scan.getCurrSymb() != ELSE) {
 		string msg  = "IfStmt::ElsePart:  wrong token type found --> ";
 		msg.append(scan.getCurrName());
 		new Error(-77, msg);
 	} //if
 	scan.nextToken();
-	return true;
+	return ret;
 }
 bool IfStmt::isCondTrue(map<string,double> &symbolTable) {
 	return cond->eval(symbolTable) != 0;	

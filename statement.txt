@@ -18,6 +18,7 @@ IF BOOLEAN AND 1 THEN
     IF IN THEN
     	PRINT IN2;
     FI;
+    ABC := 19;
 ELSE 
 	FALSEELSE := 0;
 FI;

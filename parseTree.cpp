@@ -159,11 +159,9 @@ void ParseTree::stmt (StmtNode *&current) {//create a statement node and have cu
 		current = loop;
 		loop->parse(scan); // create statement list in loop
 		StmtNode *loopRoot;
-		cout << "enter loop statment list" << endl;
 		stmt(loopRoot);
 		stmtTail(*loopRoot);
 		loop->setStmtList(loopRoot);
-		cout << "exit from loop statment list" << endl;
 		scan.nextToken();//swallow REPEAT TODO this should be done in repeat.cpp
 		break; // loop = 
 	}
@@ -176,20 +174,16 @@ void ParseTree::stmt (StmtNode *&current) {//create a statement node and have cu
 		current = ifStmt;
 		ifStmt->parse(scan);
 		StmtNode *ifRoot;
-		cout << "enter if statment list" << endl;
 		stmt(ifRoot);
 		stmtTail(*ifRoot);
 		ifStmt->setStmtList(ifRoot);
-		cout << "exit from if statment list" << endl;
 		if (ifStmt->hasElsePart(scan)) {
 			StmtNode *elseRoot;
-			cout << "enter else statment list" << endl;
 			stmt(elseRoot);
 			stmtTail(*elseRoot);
 			ifStmt->setElsePart(elseRoot);
-			cout << "exit from else statment list" << endl;
+			scan.nextToken();
 		}
-		scan.nextToken();//swallow FI TODO this should be done in fi.cpp
 		break;
 	}
 	case PRINT: {
