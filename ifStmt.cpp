@@ -28,6 +28,7 @@ void  IfStmt::parse(Scanner &scan) {	//parses if stmt
 }
 
 bool IfStmt::hasElsePart(Scanner &scan) {
+	cout << "IfStmt::hasElsePart" << endl;
 	if (scan.getCurrSymb() == FI) {
 		scan.nextToken();
 		return false;

@@ -13,7 +13,9 @@ MULT := NUM * NUM2;
 QUO := NUM / NUM2; 
 LONGSUM := 1 + 2 + 3 + 4 + 5;
 IF TRUEBOOL AND 7 + 1 = 8 THEN
-	TRUEIF := 17;
+    IF 1 THEN
+        IFIF := 1;
+    FI;
 ELSE 
 	FALSEELSE := 0;
 FI;

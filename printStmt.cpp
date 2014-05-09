@@ -15,10 +15,11 @@ void PrintStmt::parse(Scanner &scan) {
 }
 void PrintStmt::toStdOut(std::map<std::string,double> &symbolTable) {
 	std::list<std::string>::reverse_iterator iter;
+	std::cout << std::endl;
   	for(iter = idList.rbegin(); iter != idList.rend(); iter++) {
    		std::string var = *iter;
    		double value = symbolTable[*iter];
-   		printf("%s = %f\n", var.c_str(), value );
+   		printf("%s = %f ", var.c_str(), value );
    	}
 
 }
