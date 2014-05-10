@@ -1,5 +1,8 @@
 VAR := 0;
 LOOP NAME :
-	BREAK;	
+	LOOP DOS :
+		VAR := VAR + 1;
+		IF VAR > 9 THEN BREAK NAME; FI;
+	REPEAT;
 REPEAT;
 MORE := 0 .

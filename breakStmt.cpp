@@ -14,7 +14,7 @@ void  BreakStmt::parse(Scanner &scan) {	//parses if stmt
 	} //if
 	scan.nextToken();
 
-	if (scan.getCurrSymb() == ID) {
+	if (scan.getCurrSymb() != SEMICOLON) {
 		setId(scan.getCurrName());
 	}
 	scan.nextToken();

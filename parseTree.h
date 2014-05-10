@@ -8,11 +8,14 @@
 #include	"scanner.h"
 #include    "operator.h"
 
+#include 	<stack>
+
 class ParseTree {
 	private:	StmtNode *root;		//points to recursive descent tree
 				Scanner  scan;		//Scanner object to retrieve tokens
 				void execute(std::map<std::string,double> &symbolTable, StmtNode* rootNode);
-
+	protected:
+				std::stack<StmtNode*> stmtStack; 
 	public:		ParseTree();		//constructori
 				ParseTree(Scanner &scan);
 				void build();

@@ -28,6 +28,7 @@
 #include <string>
 #include <map>
 
+
 using namespace std;
 
 
@@ -46,6 +47,7 @@ void ParseTree::execute(std::map<std::string,double> &symbolTable, StmtNode *roo
 	Loop *loop;
 	cout << "\nParseTree::executing" << endl;
 	while (curr != NULL ) {
+		stmtStack.push(curr);
 		switch (curr->getKind()) {
 			case BECOMES: {
 				Becomes  *be = (Becomes *) curr;
@@ -61,22 +63,20 @@ void ParseTree::execute(std::map<std::string,double> &symbolTable, StmtNode *roo
 			}
 			case LOOP: {
 				Loop *loop = (Loop *) curr;
-				symbolTable[loop->getName()] = 1;
-				cout << "Entering Loop Execution" << endl;
-				execute(symbolTable, loop->getStmtList());	
-				cout << "Exiting Loop Execution" << endl;
-				if (symbolTable[loop->getName()] == 1) {
-					continue;
-				}
+				curr = loop->getStmtList();
+				continue;
 			}
 			case IF: {
 				IfStmt *ifStmt = (IfStmt *) curr;
 				if (ifStmt->isCondTrue(symbolTable)) {
-					execute(symbolTable, ifStmt->getIfStmtList());
+					curr = ifStmt->getIfStmtList();
 				} else if (ifStmt->hasElsePart()) {
-					execute(symbolTable, ifStmt->getElseStmtList());
+					curr = ifStmt->getElseStmtList();
+				} else {
+					break;
 				}
-				break;
+
+				continue;
 			}
 			case PRINT: {
 				PrintStmt *printStmt = (PrintStmt *) curr;
@@ -90,18 +90,59 @@ void ParseTree::execute(std::map<std::string,double> &symbolTable, StmtNode *roo
 			}
 			case BREAK: {
 				BreakStmt *breakStmt = (BreakStmt *) curr;
-				symbolTable[breakStmt->getId()] = 0;
-				return;
+				string breakId = breakStmt->getId();
+				StmtNode *stmt = stmtStack.top();
+				while(stmt != NULL) {
+					if (stmt->getKind() == LOOP) {
+						Loop *loop = (Loop *) stmt;
+						if (breakStmt->getId().empty()) {
+							curr = loop->getNext();
+							stmtStack.pop();
+							break;
+						} else if (!loop->getName().compare(breakStmt->getId())) {
+							curr = loop->getNext();
+							stmtStack.pop();
+							break;
+						}
+					}
+					stmtStack.pop();
+					stmt = stmtStack.top();
+				}
+				continue;
 			}
 			case PERIOD: {
 				cout << "End Program" << endl;
 				exit(0);
 			}
 			case REPEAT: {
-				break;
+				StmtNode *stmt = stmtStack.top();
+				while(stmt != NULL) {
+					if (stmt->getKind() == LOOP) {
+						Loop *loop = (Loop *) stmt;
+						curr = loop->getStmtList();
+						break;
+					} else {
+						stmtStack.pop();
+						stmt = stmtStack.top();
+					}
+				}
+				//stmtStack.pop();
+				continue;
 			}
 			case FI: {
-				break;
+				StmtNode *stmt = stmtStack.top();
+				while(stmt != NULL) {
+					if (stmt->getKind() == IF) {
+						IfStmt *ifStmt = (IfStmt *) stmt;
+						curr = ifStmt->getNext();
+						break;
+					} else {
+						stmtStack.pop();
+						stmt = stmtStack.top();
+					}
+				}
+				stmtStack.pop();
+				continue;
 			}
 			case ELSE: {
 				break;
@@ -202,6 +243,7 @@ void ParseTree::stmt (StmtNode *&current) {//create a statement node and have cu
 		BreakStmt *breakStmt = new BreakStmt();
 		breakStmt->parse(scan);
 		current = breakStmt;
+		break;
 	}
 	case FI: {
 		current = new Fi();
