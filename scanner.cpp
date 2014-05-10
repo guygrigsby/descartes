@@ -31,7 +31,8 @@ void openInputFile(string arg) {
 			cout << "Enter file name: ";
 			cin >> fname;
 		} else break;
-	} 
+	}
+	cout << "FILENAME = " + fname << endl;
 }
 
 void Scanner::init(string fname) {
@@ -55,7 +56,7 @@ void  Scanner::nextToken() {	//move on to next token
 	char  theWord[128];
 	cout << "Scanner: nextToken() " << endl;
 	scan(currSymb, theWord, currValue);
-	cout << theWord << endl;
+	//cout << theWord << endl;
 	currName = theWord;
 }
 
